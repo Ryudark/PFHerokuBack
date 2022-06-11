@@ -23,7 +23,7 @@ router.use(
 console.log("ENTRO A userdblogin.js");
 // const CLIENT_URL = "http://localhost:3000/";
 
-router.get("/userdblogin", async (req, res) => {
+router.post("/userdblogin", async (req, res) => {
   console.log("Where? -->>", req.url);
   try {
     const { email, password } = req.body;
