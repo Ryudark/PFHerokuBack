@@ -2,18 +2,16 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const {
-  DATABASE_URL
-} = process.env;
 
-const sequelize = new Sequelize(DATABASE_URL, {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
+
+const sequelize = new Sequelize(
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+  {
+    logging: false, // set to console.log to see the raw SQL queries
+    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   }
-});
+);
 
 const basename = path.basename(__filename);
 
@@ -39,22 +37,9 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-// const {
-//   AgeRange,
-//   Citiy,
-//   Commission,
-//   Condition,
-//   Contract,
-//   Country,
-//   Post,
-//   Professional,
-//   Specialty,
-//   State,
-//   Taxe,
-//   User,
-// } = sequelize.models;
-const { Users, States, Cities, Countries, Professionals } = sequelize.models;
-
+const { Users, States, Cities, Countries, Professionals, Posts, Specialties } =
+  sequelize.models;
+// console.log(sequelize.models);
 States.hasMany(Users);
 Users.belongsTo(States);
 
@@ -73,6 +58,12 @@ Countries.hasMany(States, {
 States.hasMany(Cities, {
   foreignKey: "id_state",
 });
+
+Users.hasMany(Posts);
+Posts.belongsTo(Users);
+
+Cities.hasMany(Posts);
+Posts.belongsTo(Cities);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

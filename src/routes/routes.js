@@ -14,6 +14,10 @@ const userResendValidationEmail = require("./userResendValidationEmail");
 const AddLocationsToDb = require("./AddLocationsToDb");
 const GetStatesByCountry = require("./GetStatesByCountry");
 const GetCitiesByState = require("./GetCitiesByState");
+const userdblogout = require("./userdblogout");
+const GetCountries = require("./GetCountries");
+const postgenerator = require("./PostGenerator.js");
+const addspecialty = require("./AddSpecialty");
 
 //Routes and middlewares
 router.use("/", userdblogin);
@@ -29,5 +33,9 @@ router.use("/", userResendValidationEmail);
 router.use("/", AddLocationsToDb);
 router.use("/", GetStatesByCountry);
 router.use("/", GetCitiesByState);
+router.use("/", userdblogout);
+router.use("/", GetCountries);
+router.use("/", postgenerator);
+router.use("/", addspecialty);
 
 module.exports = router;
