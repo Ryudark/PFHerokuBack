@@ -32,6 +32,7 @@ router.post(
         city,
         country,
       } = req.body;
+      console.log(req.body)
 
       const hash = bcrypt.hashSync(password, 10);
       const [userCreated, created] = await db.Users.findOrCreate({
