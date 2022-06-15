@@ -32,7 +32,6 @@ router.post(
         city,
         country,
       } = req.body;
-      console.log(req.body)
 
       const hash = bcrypt.hashSync(password, 10);
       const [userCreated, created] = await db.Users.findOrCreate({
@@ -70,12 +69,12 @@ router.post(
         mensaje = { message: "User created" };
 
         const { id, email, name, surname } = userCreated;
+        res.status(201).json(mensaje);
         sendEmailToValidate(email, id, name, surname);
       } else {
         mensaje = { message: "User existent" };
+        res.status(422).json(mensaje);
       }
-
-      res.status(201).json(mensaje);
     } catch (e) {
       res.send(e);
     }
