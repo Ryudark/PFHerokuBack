@@ -27,6 +27,7 @@ router.post("/postgenerator", async (req, res) => {
       namePatient,
       availableTime_0,
       availableTime_1,
+      addressPatient,
     } = req.body;
 
     const [postCreated, created] = await db.Posts.findOrCreate({
@@ -71,6 +72,7 @@ router.post("/postgenerator", async (req, res) => {
         namePatient: namePatient,
         availableTime_0: availableTime_0,
         availableTime_1: availableTime_1,
+        addressPatient: addressPatient,
       },
     });
 
@@ -104,6 +106,7 @@ router.get("/infoDetallePost/:id", async (req, res) => {
           "namePatient",
           "locationReference",
           "contact_phone",
+          "addressPatient",
         ],
 
         include: [
@@ -142,7 +145,11 @@ router.get("/infoDetallePost/:id", async (req, res) => {
           },
         ],
       });
-      res.status(201).json(posts);
+      if (posts.length > 0) {
+        res.status(201).json(posts);
+      } else {
+        res.status(422).json("Not found");
+      }
     } else {
       res.status(422).send("No envió un ID");
     }
@@ -165,12 +172,13 @@ router.get("/infoCardPost", async (req, res) => {
         "availableTime_1",
         "agePatient",
         "namePatient",
+        "addressPatient",
       ],
 
       include: [
         {
           model: db.Users,
-          attributes: ["id", "name", "age"],
+          attributes: ["id", "name", "surname", "age"],
 
           //required: true,
         },
@@ -195,7 +203,11 @@ router.get("/infoCardPost", async (req, res) => {
       ],
     });
 
-    res.status(201).json(posts);
+    if (posts.length > 0) {
+      res.status(201).json(posts);
+    } else {
+      res.status(422).json("Not found");
+    }
   } catch (error) {
     res.send(error);
   }

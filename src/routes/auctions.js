@@ -56,6 +56,7 @@ router.get("/traerPostByAuction/:id", async (req, res) => {
           "availableTime_1",
           "agePatient",
           "namePatient",
+          "addressPatient",
           "locationReference",
           "contact_phone",
         ],
@@ -111,7 +112,12 @@ router.get("/traerPostByAuction/:id", async (req, res) => {
           },
         ],
       });
-      res.status(201).json(posts);
+
+      if (posts.length > 0) {
+        res.status(201).json(posts);
+      } else {
+        res.status(422).json("Not found");
+      }
     } else {
       res.status(422).send("No envió un ID");
     }
@@ -141,6 +147,7 @@ router.get("/traerPostByProfessionals/:id", async (req, res) => {
               "availableTime_1",
               "agePatient",
               "namePatient",
+              "addressPatient",
             ],
             include: [
               {
@@ -161,7 +168,11 @@ router.get("/traerPostByProfessionals/:id", async (req, res) => {
         ],
       });
 
-      res.status(201).json(posts);
+      if (posts.length > 0) {
+        res.status(201).json(posts);
+      } else {
+        res.status(422).json("Not found");
+      }
     } else {
       res.status(422).send("No envió un ID");
     }
