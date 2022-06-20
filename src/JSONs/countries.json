@@ -1,46 +1,6 @@
 ﻿{
   "countries": [
     {
-      "id": 144,
-      "name": "Afganistán"
-    },
-    {
-      "id": 114,
-      "name": "Albania"
-    },
-    {
-      "id": 18,
-      "name": "Alemania"
-    },
-    {
-      "id": 98,
-      "name": "Algeria"
-    },
-    {
-      "id": 145,
-      "name": "Andorra"
-    },
-    {
-      "id": 119,
-      "name": "Angola"
-    },
-    {
-      "id": 4,
-      "name": "Anguilla"
-    },
-    {
-      "id": 147,
-      "name": "Antigua y Barbuda"
-    },
-    {
-      "id": 207,
-      "name": "Antillas Holandesas"
-    },
-    {
-      "id": 91,
-      "name": "Arabia Saudita"
-    },
-    {
       "id": 5,
       "name": "Argentina"
     },
